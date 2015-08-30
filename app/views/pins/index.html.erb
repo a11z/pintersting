@@ -15,9 +15,9 @@
   <tbody>
     <% @pins.each do |pin| %>
       <tr>
-        <td><%= link_to image_tag(pin.image.url(:medium)), pin %></td>
+        <td><%= link_to image_tag(pin.image.url(:thumb)), pin %></td>
         <td><%= pin.description %></td>
-        <td><%= pin.user.email if pin.user %></td>
+        <td><%= pin.user.name if pin.user %></td>
         <% if pin.user == current_user %>
           <td><%= link_to edit_pin_path(pin) do %>
             <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
@@ -31,7 +31,6 @@
   </tbody>
 </table>
 
-<br>
-<% if user_signed_in? %>
-  <%= link_to 'New Pin', new_pin_path %>
-<% end %>
+<div class="center">
+   <%= will_paginate @pins, renderer: BootstrapPagination::Rails %>
+</div>
